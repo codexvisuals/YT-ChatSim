@@ -1,1 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+    
+    body {
+        font-family: 'Arial', sans-serif;
+        background: #000;
+        color: #FFF;
+        margin: 0;
+        padding: 0;
+    }
+    #chat-container {
+        width: 500px;
+        background: #000;
+        border-radius: 12px 12px 0 0;
+        border: 1px solid rgb(255 255 255 / 20%);
+        border-bottom: 0px;
+        margin: 20px 20px 0px 20px;
+        padding: 4px 10px;
+        overflow-y: scroll;
+        height: 550px; /* Adjust as per your requirement */
+    }
+    .chat-message {
+        padding: 4px 24px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+    .chat-message:hover {
+        background: #2a2a2a;
+    }
+    .chat-message .avatar {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 16px;
+    }
+    .chat-message .name {
+        font-weight: bold;
+        color: rgba(255, 255, 255, 0.7);
+        margin-right: 8px;
+    }
+    .chat-message .timestamp {
+        color: #757575;
+        font-size: 0.8em;
+    }
+    .chat-message .content {
+        display: inline;
+        color: #fff;
+        line-height: 16px;
+    }
+    .chat-message .badge {
+        /* Styles for moderator badge or other icons */
+    }
+    .chat-message .emoji {
+        height: 24px;
+    }
+    /* Webkit Scrollbar Styles */
+    #chat-container::-webkit-scrollbar {
+        width: 20px;
+    }
+    #chat-container::-webkit-scrollbar-track {
+        
+    }
+    #chat-container::-webkit-scrollbar-thumb {
+        background-color: #2a2a2a;
+        border: 3px solid black;
+    }
+    #chat-container::-webkit-scrollbar-thumb:hover {
+        background: #888;
+    }
+    /* Firefox Scrollbar Styles */
+    #chat-container {
+        scrollbar-color: #555 #2a2a2a;
+        scrollbar-width: thin;
+    }
+    .chat-input {
+        width: 472px;
+        background: #000;
+        border: 1px solid rgb(255 255 255 / 20%);
+        margin: 0px 20px 0 20px;
+        padding: 10px 24px;
+        height: 56px; /* Adjust as per your requirement */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .chat-field {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+        padding-left: 14px;
+        display: flex;
+        flex-basis: 1e-09px;
+        flex-direction: row;
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-wrap: wrap;
+        max-height: 50px;
+        min-height: 30px;
+    }
+    .chat-field p {
+        padding: 14px 0;
+        margin: 0;
+        line-height: 18px;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    .custom-button {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        padding: 6px;
+        margin-left: 12px;
+        display: flex;
+        flex-direction: row;
+        width: 36px;
+        height: 36px;
+    }
+    .hide-chat {
+        width: 472px;
+        background: #000;
+        border-radius: 0 0 12px 12px ;
+        border: 1px solid rgb(255 255 255 / 20%);
+        border-top:0;
+        margin: 0px 20px 20px 20px;
+        padding: 1px 24px 0;
+        height: 56px; /* Adjust as per your requirement */
+    }
+    .hide-chat p {
+        font-weight: 600;
+        text-align: center;
+    }
+      
+    </style>
+</head>
+<body>
+    <input type="file" id="fileInput" accept=".json">
+    <div id="chat-container">
+      <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>
+      <!-- Repeat .chat-message for each message -->
+      <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same,Yes he can do the sameYes he can do the sameYes he can do the sameYes he can do the sameYes he can do the sameYes he can do the sameYes he can do the sameYes he can do the sameYes he can do the sameYes he can do the same</span>
+      </div>
+        <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>
+        <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>
+        <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>
+        <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>
+        <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>
+        <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>
+        <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>
+        <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>
+        <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>  <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>
+        <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>  <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>  <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>  <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>  <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>
+        <div class="chat-message">
+        <span class="timestamp">7pm</span>
+        <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+        <span class="name">User Name</span>
+    
+        <span class="content">Yes he can do the same, 🐵</span>
+      </div>
+    </div>
+    
+    <div class="chat-input">
+      <div class="chat-field">
+        <p> Chat... </p>
+      </div>
+      <div class="custom-button">
+        
+      </div>
+    </div>
+    <div class="hide-chat">
+        <p> Hide chat </p>
+    </div>
+    
+    <script>
+      //
+      // Loading JSON from a Server
+      //    If your JSON files are hosted on a server, you can use the Fetch API to load them. 
+      //    Here's an example assuming you know the URL of the JSON file:
+      
+      //  fetch('path/to/your/chatData.json')
+      //      .then(response => response.json())
+      //      .then(chatData => {
+      //          processChatData(chatData); // Process and display the chat data
+      //    })
+      //    .catch(error => console.error('Error loading chat data:', error));
+      //
+      
+      document.getElementById('fileInput').addEventListener('change', function(event) {
+          const file = event.target.files[0];
+          if (file) {
+              const reader = new FileReader();
+              reader.onload = function(e) {
+                  const chatData = JSON.parse(e.target.result);
+                  // Clear existing dummy content
+                  document.getElementById('chat-container').innerHTML = '';
+                  processChatData(chatData); // Process and display the chat data
+              };
+              reader.readAsText(file);
+          }
+      });
+      
+      
+      function processChatData(chatData) {
+          const chatMessages = chatData.map(data => {
+              // Extract liveChatTextMessageRenderer for regular messages
+              let item = data.replayChatItemAction.actions[0].addChatItemAction.item;
+              let renderer = item.liveChatTextMessageRenderer || item.liveChatPaidMessageRenderer;
+              if (renderer) {
+                  return {
+                      avatar: renderer.authorPhoto.thumbnails[1].url,
+                      name: renderer.authorName.simpleText,
+                      timestamp: parseInt(renderer.timestampUsec, 10) / 1000,
+                      message: renderer.message ? renderer.message.runs.map(run => run.text).join('') : '',
+                      purchaseAmountText: renderer.purchaseAmountText ? renderer.purchaseAmountText.simpleText : '',
+                      bodyBackgroundColor: renderer.bodyBackgroundColor ? renderer.bodyBackgroundColor : null,
+                      isSuperChat: !!item.liveChatPaidMessageRenderer,
+                  };
+              }
+          }).filter(msg => msg); // Remove any undefined mappings
+      
+          // Sort, calculate delays, and display messages
+          chatMessages.sort((a, b) => a.timestamp - b.timestamp);
+          let messageDelays = calculateDelays(chatMessages);
+      
+          let cumulativeDelay = 0;
+          chatMessages.forEach((msg, index) => {
+              cumulativeDelay += (index === 0 ? 0 : messageDelays[index - 1]);
+              setTimeout(() => {
+                  addMessageToChat(msg);
+              }, cumulativeDelay);
+          });
+      }
+      
+      function calculateDelays(chatMessages) {
+          let delays = [];
+          let previousTimestamp = chatMessages[0].timestamp;
+      
+          for (let i = 1; i < chatMessages.length; i++) {
+              let delay = chatMessages[i].timestamp - previousTimestamp;
+              delays.push(delay);
+              previousTimestamp = chatMessages[i].timestamp;
+          }
+          return delays;
+      }
+      
+      function addMessageToChat(msgData) {
+          const chatContainer = document.getElementById('chat-container');
+          const msgElement = document.createElement('div');
+          msgElement.className = 'chat-message';
+          msgElement.innerHTML = `
+              <span class="timestamp">${new Date(msgData.timestamp * 1000).toLocaleTimeString()}</span>
+              <img src="${msgData.avatar}" class="avatar" alt="User Avatar">
+              <span class="name">${msgData.name}</span>
+              <span class="content">${msgData.message}</span>
+          `;
+          chatContainer.appendChild(msgElement);
+          // Automatically scroll to the latest message
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+      
+      // Ensure createChatMessageElement(msgData) is defined to correctly format each message for display
 
+    </script>
+</body>
+</html>
