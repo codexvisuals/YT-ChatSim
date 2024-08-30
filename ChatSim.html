@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Page Title</title>
+</head>
+<body>
+    
+<style>
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #000;
+    color: #FFF;
+    margin: 0;
+    padding: 0;
+  }
+  #chat-container {
+    width: 500px;
+    background: #000;
+    border-radius: 12px 12px 0 0;
+    border: 1px solid rgb(255 255 255 / 20%);
+    border-bottom: 0px;
+    margin: 20px 20px 0px 20px;
+    padding: 4px 10px;
+    overflow-y: scroll;
+    height: 550px; /* Adjust as per your requirement */
+  }
+  .chat-message {
+    position: relative;
+    font-size: 13px;
+    padding: 4px 24px;
+    overflow: hidden;
+    contain: content;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    font-family: Roboto, Arial, sans-serif;
+  }
+.chat-message:hover {
+    background: #2a2a2a;
+}
+  .chat-message .avatar {
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+    border-radius: 50%;
+    display: block;
+    flex: none;
+    max-height: var(--yt-img-max-height, none);
+    max-width: var(--yt-img-max-width, 100%);
+  }
+  .chat-message .name {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .chat-message .name.member {
+    color: #2ba640;
+  }
+  .chat-message .name.mod {
+    color: #5e84f1;
+  }
+  .chat-message .timestamp {
+    color: #757575;
+    font-size: 11px;
+    margin-right: 8px;
+  }
+  .chat-message .content {
+    font-size: 13px;
+    display: inline;
+    color: #fff;
+    line-height: 16px;
+    word-break: break-word;
+  }
+  .chat-message .content-wrapper {
+    align-self: center;
+  }
+  .chat-message .badges {
+    /* Styles for moderator badge or other icons */
+    white-space: nowrap;
+    margin-right: 8px;
+  }
+  .chat-message .wrench svg {
+    pointer-events: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+  }
+  .chat-message .wrench {
+    fill:#5e84f1;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    margin: 0 0 0 2px;
+    vertical-align: sub;
+    border-bottom-color: rgb(94, 132, 241);
+    border-bottom-style: none;
+    border-bottom-width: 0px;
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-color: rgb(94, 132, 241);
+    border-left-style: none;
+    border-left-width: 0px;
+    border-right-color: rgb(94, 132, 241);
+    border-right-style: none;
+    border-right-width: 0px;
+    border-top-color: rgb(94, 132, 241);
+    border-top-style: none;
+    border-top-width: 0px;
+  }
+  .chat-message .emoji {
+    height: 24px;
+    width: 24px;
+    margin: -1px 2px 1px;
+    vertical-align: middle;
+  }
+  /* Webkit Scrollbar Styles */
+  #chat-container::-webkit-scrollbar {
+    width: 20px;
+  }
+
+  #chat-container::-webkit-scrollbar-track {
+    
+  }
+
+  #chat-container::-webkit-scrollbar-thumb {
+    background-color: #2a2a2a;
+    border: 3px solid black;
+  }
+
+ #chat-container::-webkit-scrollbar-thumb:hover {
+    background: #888;
+  }
+
+  /* Firefox Scrollbar Styles */
+  #chat-container {
+    scrollbar-color: #555 #2a2a2a;
+    scrollbar-width: thin;
+  }
+.chat-input {
+    width: 472px;
+    background: #000;
+    border: 1px solid rgb(255 255 255 / 20%);
+    margin: 0px 20px 0 20px;
+    padding: 10px 24px;
+    height: 56px; /* Adjust as per your requirement */
+    display: flex;
+    flex-direction: row;
+  align-items: center;
+  }
+.chat-field {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding-left: 14px;
+  display: flex;
+  flex-basis: 1e-09px;
+  flex-direction: row;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-wrap: wrap;
+max-height: 50px;
+min-height: 30px;
+  
+}
+.chat-field p {
+  padding: 14px 0;
+  margin: 0;
+  line-height: 18px;
+  color: rgba(255, 255, 255, 0.7);
+}
+.custom-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  padding: 6px;
+  margin-left: 12px;
+  display: flex;
+  flex-direction: row;
+  width: 36px;
+  height: 36px;
+}
+.hide-chat {
+    width: 472px;
+    background: #000;
+    border-radius: 0 0 12px 12px ;
+    border: 1px solid rgb(255 255 255 / 20%);
+    border-top:0;
+    margin: 0px 20px 20px 20px;
+    padding: 1px 24px 0;
+    height: 56px; /* Adjust as per your requirement */
+  }
+.hide-chat p {
+  font-weight: 600;
+  text-align: center;
+}
+
+</style>
+
+<input type="file" id="fileInput" accept=".json">
+
+<div id="chat-container">
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <!-- Repeat .chat-message for each message -->
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same,Yes he can do the sameYes he can do the sameYes he can do the sameYes he can do the sameYes he can do the sameYes he can do the sameYes he can do the sameYes he can do the sameYes he can do the sameYes he can do the same</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+  <div class="chat-message">
+    <img src="avatar_url.jpg" class="avatar" alt="User Avatar">
+    <div class="content-wrapper">
+      <span class="timestamp">7pm</span>
+      <span class="name">User Name</span>
+      <span class="content">Yes he can do the same, 🐵</span>
+    </div>
+  </div>
+</div>
+
+<div class="chat-input">
+  <div class="chat-field">
+    <p> Chat... </p>
+  </div>
+  <div class="custom-button">
+    
+  </div>
+</div>
+<div class="hide-chat">
+    <p> Hide chat </p>
+</div>
+
+<script>
+//
+// Loading JSON from a Server
+//    If your JSON files are hosted on a server, you can use the Fetch API to load them. 
+//    Here's an example assuming you know the URL of the JSON file:
+
+//  fetch('path/to/your/chatData.json')
+//      .then(response => response.json())
+//      .then(chatData => {
+//          processChatData(chatData); // Process and display the chat data
+//    })
+//    .catch(error => console.error('Error loading chat data:', error));
+//
+
+document.getElementById('fileInput').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const chatData = JSON.parse(e.target.result);
+            // Clear existing dummy content
+            document.getElementById('chat-container').innerHTML = '';
+            processChatData(chatData); // Process and display the chat data
+        };
+        reader.readAsText(file);
+    }
+});
+
+function processChatData(chatData) {
+    const chatMessages = chatData.map(data => {
+        let item = data.replayChatItemAction.actions[0].addChatItemAction.item;
+        let renderer = item.liveChatTextMessageRenderer || item.liveChatPaidMessageRenderer;
+        let badgeUrl = ''; // Initialize badgeUrl outside the if-block to make it available later
+
+        if (renderer && renderer.message && renderer.message.runs) {
+            let messageContent = '';
+            let isModerator = false;
+            let isOwner = false;
+            let isMember = false;
+
+            if (renderer.authorBadges) {
+                renderer.authorBadges.forEach(badge => {
+                    const badgeRenderer = badge.liveChatAuthorBadgeRenderer;
+                    if (badgeRenderer.icon) {
+                        if (badgeRenderer.icon.iconType === 'MODERATOR') {
+                            isModerator = true;
+                        } else if (badgeRenderer.icon.iconType === 'OWNER') {
+                            isOwner = true;
+                        }
+                    }
+                    if (badgeRenderer.customThumbnail) {
+                        isMember = true;
+                        badgeUrl = badgeRenderer.customThumbnail.thumbnails[0].url; // Correctly assign the badge URL
+                    }
+                });
+            }
+            renderer.message.runs.forEach(run => {
+                if (run.text) {
+                    messageContent += run.text; 
+                } else if (run.emoji) {
+                    const emojiImg = run.emoji.image && run.emoji.image.thumbnails && run.emoji.image.thumbnails.length > 0 ? run.emoji.image.thumbnails[0].url : '';
+                    const emojiAlt = run.emoji.shortcuts && run.emoji.shortcuts.length > 0 ? run.emoji.shortcuts[0] : '';
+                    messageContent += `<img src="${emojiImg}" alt="${emojiAlt}" class="emoji">`;
+                }
+            });
+            return {
+                avatar: renderer.authorPhoto.thumbnails[renderer.authorPhoto.thumbnails.length - 1].url,
+                name: renderer.authorName.simpleText,
+                timestamp: parseInt(renderer.timestampUsec, 10) / 1000,
+                message: messageContent,
+                purchaseAmountText: renderer.purchaseAmountText ? renderer.purchaseAmountText.simpleText : '',
+                bodyBackgroundColor: renderer.bodyBackgroundColor ? renderer.bodyBackgroundColor : null,
+                isSuperChat: !!item.liveChatPaidMessageRenderer,
+                isModerator,
+                isOwner,
+                isMember,
+                badgeUrl // Add the badgeUrl to the return object
+            };
+        }
+    }).filter(msg => msg); // Omit any known types of corrupt data
+
+    // Sort, calculate delays, and display messages
+    chatMessages.sort((a, b) => a.timestamp - b.timestamp);
+    let messageDelays = calculateDelays(chatMessages);
+
+    let cumulativeDelay = 0;
+    chatMessages.forEach((msg, index) => {
+        cumulativeDelay += (index === 0 ? 0 : messageDelays[index - 1]);
+        setTimeout(() => {
+            addMessageToChat(msg);
+        }, cumulativeDelay);
+    });
+}
+
+function calculateDelays(chatMessages) {
+    let delays = [];
+    let previousTimestamp = chatMessages[0].timestamp;
+
+    for (let i = 1; i < chatMessages.length; i++) {
+        let delay = chatMessages[i].timestamp - previousTimestamp;
+        delays.push(delay);
+        previousTimestamp = chatMessages[i].timestamp;
+    }
+    return delays;
+}
+
+function addMessageToChat(msgData) {
+    const chatContainer = document.getElementById('chat-container');
+    const msgElement = document.createElement('div');
+    msgElement.className = 'chat-message';
+    const moderatorSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false"><path d="M9.64589146,7.05569719 C9.83346524,6.562372 9.93617022,6.02722257 9.93617022,5.46808511 C9.93617022,3.00042984 7.93574038,1 5.46808511,1 C4.90894765,1 4.37379823,1.10270499 3.88047304,1.29027875 L6.95744681,4.36725249 L4.36725255,6.95744681 L1.29027875,3.88047305 C1.10270498,4.37379824 1,4.90894766 1,5.46808511 C1,7.93574038 3.00042984,9.93617022 5.46808511,9.93617022 C6.02722256,9.93617022 6.56237198,9.83346524 7.05569716,9.64589147 L12.4098057,15 L15,12.4148057 L9.64589146,7.05569719 Z"></path></svg>`;
+    // Convert microseconds to milliseconds for the Date object
+    const date = new Date(msgData.timestamp);
+    // Correctly convert the date and time for the custom date format
+    const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+    // Determine the appropriate HTML based on user role
+    let roleHTML = '';
+    if (msgData.isModerator) {
+        roleHTML = `<span class="name mod">${msgData.name}</span> <span class="badges"><div class="wrench">${moderatorSVG}</div></span>`;
+    } else if (msgData.isOwner) {
+        roleHTML = `<span class="name mod">${msgData.name}</span> <span class="badges"><div class="wrench">${moderatorSVG}</div>👑</span>`; // Example badge/emoji for the owner
+    } else if (msgData.isMember && msgData.badgeUrl) {
+        roleHTML = `<span class="name member">${msgData.name}</span> <span class="badges"><img src="${msgData.badgeUrl}" class="member-badge" alt="Member Badge"></span>`; // Include the member badge
+    } else {
+        roleHTML = `<span class="name" style="margin-right:8px;">${msgData.name}</span>`;
+    }
+  
+    msgElement.innerHTML = `
+        <img src="${msgData.avatar}" class="avatar" alt="User Avatar">
+        <div class="content-wrapper">
+          <span class="timestamp">${formattedTime}</span>
+          ${roleHTML}
+          <span class="content">${msgData.message}</span>
+        </div>
+    `;
+    chatContainer.appendChild(msgElement);
+    // Ensure the viewport stays up to date with the chat stream
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+// Ensure createChatMessageElement(msgData) is defined to correctly format each message for display
+</script>
+
+</body>
+</html>
