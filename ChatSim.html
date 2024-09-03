@@ -997,13 +997,16 @@ button.active {
     
     <!-- Script End - Chat Reanimation -->
 
+    <!-- Script Start - Filename Display -->
     <script>
       document.getElementById('fileInput').addEventListener('change', function() {
         var fileName = this.files[0] ? this.files[0].name : "No file chosen";
         document.getElementById('fileNameDisplay').textContent = fileName;
       });
     </script>
+    <!-- Script End - Filename Display -->
 
+    <!-- Script Start - Recording Toggle -->
     <script>
       document.getElementById('recordButton').addEventListener('click', function() {
         console.log('Button clicked');
@@ -1015,6 +1018,7 @@ button.active {
         }
       });
     </script>
+    <!-- Script End - Recording Toggle -->
   </main>
 </body>
 </html>
